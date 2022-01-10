@@ -6,7 +6,8 @@ using System.Text;
 
 namespace EstrelaDaMorte_MVC.Models {
     public class Planeta {
-        
+
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int IdPlaneta { get; set; }
         public string Nome { get; set; }
         public double Rotacao { get; set; }

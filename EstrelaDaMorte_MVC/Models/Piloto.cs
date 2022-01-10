@@ -5,13 +5,15 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace EstrelaDaMorte_MVC.Models {
     public class Piloto {
 
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int IdPiloto { get; set; }
         public string Nome { get; set; }
         public string AnoNascimento { get; set; }
-        public int IdPlaneta { get; set; }
 
-        //Relacionamentos
+        [ForeignKey("Planeta")]
+        public int IdPlaneta { get; set; }
         public Planeta Planeta { get; set; }
-        public List<Nave> Naves { get; set; }
+
+        //public List<Nave> Naves { get; set; }
     }
 }
