@@ -7,17 +7,17 @@ $(document).ready(function () {
 function loadDataTable() {
     dataTable = $('#DT_load_naves').DataTable({
         "ajax": {
-            "url": "/Naves/getall/",
+            "url": "/Naves/GetAll/",
             "type": "GET",
             "datatype": "json"
         },
         "columns": [
-            { "data": "idnave", "width": "20%" },
-            { "data": "nome", "width": "20%" },
-            { "data": "modelo", "width": "20%" },
-            { "data": "passageiros", "width": "20%" },
-            { "data": "carga", "width": "20%" },
-            { "data": "classe", "width": "20%" },
+            { "data": "idnave", "width": "10%" },
+            { "data": "nome", "width": "10%" },
+            { "data": "modelo", "width": "10%" },
+            { "data": "passageiros", "width": "10%" },
+            { "data": "carga", "width": "10%" },
+            { "data": "classe", "width": "10%" },
             {
                 "data": "idnave",
                 "render": function (data) {

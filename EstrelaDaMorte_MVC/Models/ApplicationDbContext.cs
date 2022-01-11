@@ -7,8 +7,9 @@ using System.Threading.Tasks;
 namespace EstrelaDaMorte_MVC.Models {
     public class ApplicationDbContext : DbContext {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) {
-
+            
         }
+
 
         public DbSet<Nave> Naves { get; set; }
         public DbSet<Piloto> Pilotos { get; set; }
@@ -23,5 +24,7 @@ namespace EstrelaDaMorte_MVC.Models {
             modelBuilder.Entity<PilotosNaves>().HasKey(ba => new { ba.IdPiloto, ba.IdNave });
             modelBuilder.Entity<HistoricoViagens>().HasKey(ba => new { ba.IdPiloto, ba.IdNave });
         }
+
+
     }
 }
