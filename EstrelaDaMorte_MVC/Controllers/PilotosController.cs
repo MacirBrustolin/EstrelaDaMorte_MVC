@@ -29,7 +29,7 @@ namespace EstrelaDaMorte_MVC.Controllers {
 
         [HttpDelete]
         public async Task<IActionResult> Delete(int id) {
-            var pilotoFromDb = await _db.Pilotos.FirstOrDefaultAsync(u => u.IdPiloto == id);
+            var pilotoFromDb = await _db.Pilotos.FirstOrDefaultAsync(u => u.PilotoId == id);
             if (pilotoFromDb == null) {
                 return Json(new { success = false, message = "Error while Deleting" });
             }

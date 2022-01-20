@@ -29,7 +29,7 @@ namespace EstrelaDaMorte_MVC.Controllers {
 
         [HttpDelete]
         public async Task<IActionResult> Delete(int id) {
-            var planetaFromDb = await _db.Planetas.FirstOrDefaultAsync(u => u.IdPlaneta == id);
+            var planetaFromDb = await _db.Planetas.FirstOrDefaultAsync(u => u.PlanetaId == id);
             if (planetaFromDb == null) {
                 return Json(new { success = false, message = "Error while Deleting" });
             }
