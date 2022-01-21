@@ -1,0 +1,48 @@
+﻿@model EstrelaDaMorte_MVC.Models.Nave
+
+@{ ViewData["Title"] = "Detalhes"; }
+
+<h1>Detalhes</h1>
+
+<div>
+    <h4>Naves</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Nome)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Nome)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Modelo)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Modelo)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.PilotoNaves)
+        </dt>
+        <dd class="col-sm-10">
+            <table class="table">
+                    <tr>
+                        <th>Nome Piloto</th>
+                        <th>ID Piloto</th>
+                    </tr>
+                    @foreach (var item in Model.PilotoNaves) {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Pilotos.Nome)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.PilotoId)
+                        </td>
+                    </tr>}
+            </table>
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Editar" asp-route-id="@Model.NaveId">Editar</a> |
+    <a asp-action="Index">Voltar a Lista</a>
+</div>

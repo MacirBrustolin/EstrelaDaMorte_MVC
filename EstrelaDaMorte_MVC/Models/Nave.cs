@@ -15,6 +15,7 @@ namespace EstrelaDaMorte_MVC.Models {
         public double Carga { get; set; }
         public string Classe { get; set; }
 
+
         public virtual ICollection<PilotosNaves> PilotoNaves { get; set; }
     }
 }

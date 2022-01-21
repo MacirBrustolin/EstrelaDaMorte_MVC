@@ -21,36 +21,41 @@ namespace EstrelaDaMorte_MVC.Controllers {
             return View(await _db.Naves.ToListAsync());
         }
 
-
-        #region API Calls
-        [HttpGet]
-        public async Task<IActionResult> GetAll() {
-            return Json(new { data = await _db.Naves.ToListAsync() });
-        }
-
-        [HttpGet("{searchString}")]
-        public async Task<IActionResult> GetDet(string searchString) {
-
-            var naves = from m in _db.Naves
-                        select m;
-
-            if (!string.IsNullOrEmpty(searchString)) {
-                naves = naves.Include(s => s.Nome!.Contains(searchString));
+        public async Task<IActionResult> Details(int? id) {
+            if (id == null) {
+                return NotFound();
             }
 
-            return Json(new { data = await naves.ToListAsync() });
+            var naves = await _db.Naves
+                .Include(s => s.PilotoNaves)
+                    .ThenInclude(e => e.Pilotos)
+                .AsNoTracking()
+                .FirstOrDefaultAsync(m => m.NaveId == id);
+
+            if (naves == null) {
+                return NotFound();
+            }
+
+            return View(naves);
         }
 
-        [HttpDelete]
-        public async Task<IActionResult> Delete(int id) {
-            var naveFromDb = await _db.Naves.FirstOrDefaultAsync(u => u.NaveId == id);
-            if (naveFromDb == null) {
-                return Json(new { success = false, message = "Error while Deleting" });
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create(
+        [Bind("Nome, Modelo, Passageiros, Carga, Classe")] Nave nave) {
+            try {
+                if (ModelState.IsValid) {
+                    _db.Add(nave);
+                    await _db.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }
+            } catch (DbUpdateException /* ex */) {
+                //Log the error (uncomment ex variable name and write a log.
+                ModelState.AddModelError("", "Unable to save changes. " +
+                    "Try again, and if the problem persists " +
+                    "see your system administrator.");
             }
-            _db.Naves.Remove(naveFromDb);
-            await _db.SaveChangesAsync();
-            return Json(new { success = true, message = "Delete Successful" });
+            return View(nave);
         }
-        #endregion
     }
 }
